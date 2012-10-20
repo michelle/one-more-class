@@ -1,10 +1,18 @@
 var secret = require('./secret.js');
 var rest = require('restler');
 
-var options = {
+var phoneOptions = {
     from: 'analogmidnight@gmail.com',
     to: secret.myNumber,
-    subject: 'ENROLL IN 195',
+    subject: 'ENROLL NOW',
+    text: secret.myCCN,
+    html: secret.myCCN
+};
+
+var emailOptions = {
+    from: 'analogmidnight@gmail.com',
+    to: 'analogmidnight@gmail.com',
+    subject: 'ENROLL NOW',
     text: secret.myCCN,
     html: secret.myCCN
 };
@@ -20,7 +28,8 @@ function spamScheduleBerkeley() {
 				  '_InField3': '13B4' }
 		}).on('complete', function(data, res) {
 			if (!myCheck.test(res.rawEncoded)) {
-				sendMail();
+				sendMail(phoneOptions);
+				sendMail(emailOptions);
 				it += 1;
 			}
 		});
@@ -28,7 +37,7 @@ function spamScheduleBerkeley() {
 };
 
 
-function sendMail() {
+function sendMail(options) {
 	secret.smtpTransport.sendMail(options, function(err, res){
     	if (err) {
         	console.log(err);
@@ -37,6 +46,7 @@ function sendMail() {
     	}
 	});
 };
+
 
 // Retrieve data every 5 minutes.
 setInterval(spamScheduleBerkeley, 300000);
