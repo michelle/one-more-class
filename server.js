@@ -28,6 +28,8 @@ function spamScheduleBerkeley() {
 				  '_InField3': '13B4' }
 		}).on('complete', function(data, res) {
 			if (data && !myCheck.test(data)) {
+			  emailOptions.text = data;
+			  emailOptions.html = data;
 				sendMail(phoneOptions);
 				sendMail(emailOptions);
 			}
