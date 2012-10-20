@@ -30,7 +30,6 @@ function spamScheduleBerkeley() {
 			if (!myCheck.test(res.rawEncoded)) {
 				sendMail(phoneOptions);
 				sendMail(emailOptions);
-				it += 1;
 			}
 		});
 	
