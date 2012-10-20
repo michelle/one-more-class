@@ -27,7 +27,7 @@ function spamScheduleBerkeley() {
 				  '_InField2': secret.myCCN,
 				  '_InField3': '13B4' }
 		}).on('complete', function(data, res) {
-			if (!myCheck.test(res.rawEncoded)) {
+			if (data && !myCheck.test(data)) {
 				sendMail(phoneOptions);
 				sendMail(emailOptions);
 			}
@@ -47,5 +47,6 @@ function sendMail(options) {
 };
 
 
+spamScheduleBerkeley();
 // Retrieve data every 5 minutes.
 setInterval(spamScheduleBerkeley, 300000);
