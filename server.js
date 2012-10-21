@@ -29,6 +29,7 @@ var emailOptions = {
 
 var myCheck = /0 student\(s\) are enrolled, with a limit of 180\n[\w\s]*1 student\(s\) are on the waiting list, with a limit of 1\n/;
 
+var invalidCheck = /Internal Server Error/;
 
 function spamScheduleBerkeley() {
   console.log('I want to graduate :(');
@@ -37,7 +38,7 @@ function spamScheduleBerkeley() {
               '_InField2': secret.myCCN,
               '_InField3': '13B4' }
     }).on('complete', function(data, res) {
-      if (data && !myCheck.test(data)) {
+      if (data && !myCheck.test(data) && !invalidCheck.test(data)) {
         emailOptions.text = data;
         emailOptions.html = data;
         sendMail(phoneOptions);
